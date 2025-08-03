@@ -1,0 +1,34 @@
+ # Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.py[cod]
+*.so
+
+# Django
+*.log
+*.pot
+*.pyc
+*.mo
+*.db
+*.sqlite3
+
+# Environments
+.env
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Tailwind (if used via npm/yarn in future)
+node_modules/
+
+# VSCode
+.vscode/
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
