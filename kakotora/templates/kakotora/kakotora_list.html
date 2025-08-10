@@ -3,16 +3,80 @@
 {% block content %}
 <h1 class="text-2xl font-bold mb-6 text-white">過去トラ一覧</h1>
 
+<!-- ▼フィルターフォーム -->
+<form method="get" class="mb-4 bg-white shadow rounded-lg p-4">
+    <div class="flex flex-wrap gap-4 items-end">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">製品名</label>
+            {{ filter_form.product }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700">カテゴリ</label>
+            {{ filter_form.category }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700">ステータス</label>
+            {{ filter_form.status }}
+        </div>
+        <div class="ml-auto flex gap-2">
+            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm bg-indigo-600 text-white hover:bg-indigo-700">
+                絞り込み
+            </button>
+            <a href="{% url 'kakotora_list' %}"
+                class="inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-50 border-gray-300">
+                リセット
+            </a>
+        </div>
+    </div>
+</form>
+<!-- ▲フィルターフォーム -->
+
+
 <div class="overflow-x-auto bg-white shadow rounded-lg p-4">
     <table class="min-w-full border border-gray-300 divide-y divide-gray-200">
         <thead class="bg-gray-100">
-            <tr>
-                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">タイトル</th>
-                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">製品名</th>
-                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">モデル名</th>
-                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">カテゴリ</th>
-                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">ステータス</th>
-            </tr>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">
+                <a class="inline-flex items-center gap-1 hover:underline"
+                    href="?{% if base_qs %}{{ base_qs }}&{% endif %}order={{ ordering.title.next }}">
+                    タイトル
+                    {% if ordering.title.active %}
+                        {% if ordering.title.dir == 'asc' %}▲{% else %}▼{% endif %}
+                    {% endif %}  
+                </a>
+            </th>
+
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">
+                <a class="inline-flex items-center gap-1 hover:underline"
+                    href="?{% if base_qs %}{{ base_qs }}&{% endif %}order={{ ordering.product.next }}">
+                    製品名
+                    {% if ordering.product.active %}
+                        {% if ordering.product.dir == 'asc' %}▲{% else %}▼{% endif %}
+                    {% endif %}  
+                </a>
+            </th>
+
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">モデル名</th>
+            
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">
+                <a class="inline-flex items-center gap-1 hover:underline"
+                    href="?{% if base_qs %}{{ base_qs }}&{% endif %}order={{ ordering.category.next }}">
+                    カテゴリ
+                    {% if ordering.category.active %}
+                        {% if ordering.category.dir == 'asc' %}▲{% else %}▼{% endif %}
+                    {% endif %}  
+                </a>
+            </th>
+
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">
+                <a class="inline-flex items-center gap-1 hover:underline"
+                    href="?{% if base_qs %}{{ base_qs }}&{% endif %}order={{ ordering.status.next }}">
+                    ステータス
+                    {% if ordering.status.active %}
+                        {% if ordering.status.dir == 'asc' %}▲{% else %}▼{% endif %}
+                    {% endif %}  
+                </a>
+            </th>
+
         </thead>
         <tbody class="divide-y divide-gray-200">
             {% for kt in kakotoras %}
@@ -26,6 +90,10 @@
                 </td>
                 <td class="px-4 py-2 text-sm text-gray-900">{{ kt.category }}</td>
                 <td class="px-4 py-2 text-sm text-gray-900">{{ kt.status }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="px-4 py-6 text-center text-sm text-gray-500">該当データなし</td>
             </tr>
             {% endfor %}
         </tbody>
