@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tailwind',
+    'kakotora',
     'theme', # Tailwindアプリ名
     'django_browser_reload', # 開発時のホットリロード
     'django_editorjs',
 ]
 
 TAILWIND_APP_NAME = 'theme'
+TAILWIND_CSS_PATH = 'css/dist/styles.css'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -60,7 +62,7 @@ ROOT_URLCONF = 'wr_analyzer.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

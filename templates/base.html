@@ -1,0 +1,19 @@
+{% load static %}
+{% load tailwind_tags %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}WR Database{% endblock %}</title>
+
+    <!-- Tailwindビルド成果物を直接読み込む -->
+    <!-- {% tailwind_css %} -->
+    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}?v={% now 'U' %}">
+</head>
+<body class="bg-gray-600">
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

@@ -7,6 +7,7 @@
 
 module.exports = {
     content: [
+        './probe.html',
 
         /*  Templates within theme app (<tailwind_app_name>/templates), e.g. base.html. */
         '../templates/**/*.html',
@@ -37,6 +38,9 @@ module.exports = {
          * and make sure the pattern below matches your project structure.
          */
         // '../../**/*.py'
+    ],
+    safelist: [
+        'bg-gray-700',
     ],
     theme: {
         extend: {},
